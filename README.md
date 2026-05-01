@@ -1,5 +1,7 @@
 # Тижневий планувальник харчування (GitHub Pages)
-[ Спробувати застосунок (Live Demo)](https://dashakalashnikova.github.io/weekly-meal-planner-Kalashnikova-/)
+
+[ Спробувати застосунок ](https://dashakalashnikova.github.io/weekly-meal-planner-Kalashnikova-/)
+
 Це односторінковий веб-застосунок для планування тижневого меню, керування каталогом страв і формування списку покупок. Він повністю працює на стороні клієнта за допомогою Vanilla HTML, CSS та JavaScript.
 
 ## Функціонал
