@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Планувальник харчування</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Fixed Brand Overlay -->
+    <div class="fixed-brand">
+      <button id="sidebar-toggle" class="btn-ghost">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        Планувальник
+      </div>
+    </div>
+
+    <nav class="sidebar" id="sidebar">
+      <div class="nav-menu">
+        <a href="#plan" class="nav-item active" id="nav-plan">Тижневий план</a>
+        <a href="#catalog" class="nav-item" id="nav-catalog">Каталог страв</a>
+        <a href="#shopping" class="nav-item" id="nav-shopping">Список продуктів</a>
+      </div>
+      <div class="settings-group">
+        <button class="btn btn-outline" id="theme-toggle-btn">Темна тема</button>
+        <button class="btn btn-outline" id="load-demo-btn">Демо-дані</button>
+        <button class="btn btn-outline text-warning" id="reset-plan-btn">Скинути план</button>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      
+      <!-- View: Weekly Plan -->
+      <div id="view-plan" class="view active">
+        <div class="view-header">
+          <h1>Тижневий план</h1>
+        </div>
+        
+        <div class="stats-grid" id="plan-stats">
+          <!-- Stats rendered dynamically -->
+        </div>
+
+        <div class="plan-container">
+          <table class="plan-table">
+            <thead>
+              <tr>
+                <th>День</th>
+                <th>Сніданок</th>
+                <th>Обід</th>
+                <th>Вечеря</th>
+                <th>Перекус</th>
+              </tr>
+            </thead>
+            <tbody id="plan-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- View: Catalog -->
+      <div id="view-catalog" class="view">
+        <div class="view-header">
+          <h1>Каталог страв</h1>
+          <button class="btn btn-primary" id="new-dish-btn">+ Нова страва</button>
+        </div>
+
+        <div class="filters-bar">
+          <input type="text" id="filter-search" placeholder="Пошук страв..." />
+          <input type="text" id="filter-tag" placeholder="Тег..." style="width: 120px;" />
+          <input type="number" id="filter-max-time" placeholder="Макс. час" style="width: 100px;" />
+          <select id="filter-type">
+            <option value="">Усі прийоми їжі</option>
+            <option value="Breakfast">Сніданок</option>
+            <option value="Lunch">Обід</option>
+            <option value="Dinner">Вечеря</option>
+            <option value="Snack">Перекус</option>
+          </select>
+          <select id="filter-difficulty">
+            <option value="">Будь-яка складність</option>
+            <option value="Easy">Легко</option>
+            <option value="Medium">Середньо</option>
+            <option value="Hard">Складно</option>
+          </select>
+          <select id="sort-catalog">
+            <option value="date-desc">Нові спочатку</option>
+            <option value="date-asc">Старі спочатку</option>
+            <option value="name-asc">За назвою (А-Я)</option>
+            <option value="name-desc">За назвою (Я-А)</option>
+            <option value="time-asc">Найшвидші спочатку</option>
+            <option value="time-desc">Найдовші спочатку</option>
+            <option value="diff-asc">Легкі спочатку</option>
+            <option value="diff-desc">Складні спочатку</option>
+          </select>
+          <label style="display:flex; align-items:center; gap:8px;">
+            <input type="checkbox" id="filter-fav" /> Тільки улюблені
+          </label>
+          <button class="btn btn-ghost" id="clear-filters-btn">Очистити</button>
+        </div>
+
+        <div id="catalog-container" class="catalog-grid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- View: Shopping List -->
+      <div id="view-shopping" class="view">
+        <div class="view-header">
+          <h1>Список продуктів</h1>
+        </div>
+        <div class="shopping-list" id="shopping-list-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      </main>
+
+    <!-- Modal: Dish Form -->
+    <div class="modal-overlay" id="dish-modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 id="dish-modal-title">Створити страву</h2>
+          <button class="btn-ghost" id="close-dish-modal" style="border:none; background:transparent; font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+        <form id="dish-form">
+          <input type="hidden" id="dish-id" />
+          
+          <div class="form-group">
+            <label class="form-label">Назва *</label>
+            <input type="text" class="form-control" id="dish-name" required minlength="3" maxlength="80">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Опис</label>
+            <textarea class="form-control" id="dish-desc" maxlength="500" rows="2"></textarea>
+          </div>
+
+          <div style="display: flex; gap: 16px;">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Тип прийому їжі *</label>
+              <select class="form-control" id="dish-type" required>
+                <option value="">Обрати...</option>
+                <option value="Breakfast">Сніданок</option>
+                <option value="Lunch">Обід</option>
+                <option value="Dinner">Вечеря</option>
+                <option value="Snack">Перекус</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Складність *</label>
+              <select class="form-control" id="dish-diff" required>
+                <option value="">Обрати...</option>
+                <option value="Easy">Легко</option>
+                <option value="Medium">Середньо</option>
+                <option value="Hard">Складно</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Час приготування (хв) *</label>
+              <input type="number" class="form-control" id="dish-time" min="5" max="240" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Теги (через кому, макс 6)</label>
+            <input type="text" class="form-control" id="dish-tags" placeholder="напр. корисне, швидко">
+          </div>
+
+          <div class="form-group">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+              <label class="form-label" style="margin:0;">Інгредієнти *</label>
+              <button type="button" class="btn btn-ghost btn-sm" id="add-ingredient-btn" style="padding: 4px 8px; font-size: 0.8rem;">+ Додати</button>
+            </div>
+            <div id="ingredients-container">
+              <!-- Dynamically added -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="dish-fav"> Позначити як улюблене
+            </label>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
+            <button type="button" class="btn btn-outline" id="cancel-dish-btn">Скасувати</button>
+            <button type="submit" class="btn btn-primary">Зберегти страву</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Select Dish for Plan -->
+    <div class="modal-overlay" id="select-dish-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Обрати страву</h2>
+          <button class="btn-ghost" id="close-select-modal" style="border:none; background:transparent; font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+        <div id="select-dish-list" style="max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Select Day for Plan -->
+    <div class="modal-overlay" id="select-day-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Оберіть день</h2>
+          <button class="btn-ghost" id="close-select-day-modal" style="border:none; background:transparent; font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+        <p style="color:var(--text-muted); margin-top: 0; margin-bottom: 20px;">На який день додати страву?</p>
+        <div id="select-day-list" style="display: flex; flex-direction: column; gap: 10px;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+    <div id="tooltip" class="custom-tooltip"></div>
+
+    <script src="./src/app.js"></script>
+  </body>
+</html>
