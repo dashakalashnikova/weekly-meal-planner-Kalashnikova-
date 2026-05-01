@@ -1,32 +1,32 @@
-# Weekly Meal Planner (GitHub Pages)
+# Тижневий планувальник харчування (GitHub Pages)
 
-This is a single-page web application designed for planning weekly meals, managing a dish catalog, and generating shopping lists. It runs entirely on the client-side using Vanilla HTML, CSS, and JavaScript.
+Це односторінковий веб-застосунок для планування тижневого меню, керування каталогом страв і формування списку покупок. Він повністю працює на стороні клієнта за допомогою Vanilla HTML, CSS та JavaScript.
 
-## Features
-- **Dish Catalog:** Create, edit, delete, and search dishes.
-- **Weekly Plan:** Assign dishes to specific meals (Breakfast, Lunch, Dinner, Snack) across the week.
-- **Shopping List:** Automatically aggregates ingredients from your weekly plan into a shopping list.
-- **Smart Rules:** The application warns you when you repeat a dish on the same day, overload a day with "heavy" meals, or assign a dish to an incompatible meal slot.
-- **Local Storage:** All your data is saved securely in your browser's local storage.
+## Функціонал
+- **Каталог страв:** Створення, редагування, видалення та пошук страв.
+- **Тижневий план:** Призначення страв до конкретних прийомів їжі (Сніданок, Обід, Вечеря, Перекус) на кожен день тижня.
+- **Список покупок:** Автоматичне формування списку інгредієнтів із тижневого плану.
+- **Розумні правила:** Застосунок попереджає про повторення страви в один день, перевантаження дня «важкими» стравами або призначення страви до несумісного прийому їжі.
+- **Локальне сховище:** Усі дані надійно зберігаються у локальному сховищі браузера.
 
-## Demo & Testing
-- To view the app with sample data, click the **"Load Demo Data"** button in the sidebar. This will populate the catalog and plan.
-- Use **"Reset Plan"** to clear the weekly plan while keeping your dish catalog intact.
+## Демо та тестування
+- Щоб переглянути застосунок із прикладами даних, натисніть кнопку **«Демо-дані»** у бічній панелі — каталог і план заповняться автоматично.
+- Використовуйте **«Скинути план»**, щоб очистити тижневий план, зберігши каталог страв.
 
-## Technology Stack
+## Технічний стек
 - HTML5
-- CSS3 (Custom Variables, Flexbox, CSS Grid)
-- Vanilla JavaScript (ES6 Modules)
-- `localStorage` API for data persistence
+- CSS3 (CSS-змінні, Flexbox, CSS Grid)
+- Vanilla JavaScript (ES6 модулі)
+- `localStorage` API для збереження даних
 
-## Deployment
-This project is configured for deployment to **GitHub Pages**. The `.github/workflows/deploy-pages.yml` file handles the automated build and deployment process whenever changes are pushed to the `main` branch. 
+## Розгортання
+Проєкт налаштований для розгортання на **GitHub Pages**. Файл `.github/workflows/deploy-pages.yml` автоматично збирає та публікує застосунок щоразу, коли зміни потрапляють до гілки `main`.
 
-Since there is no backend server requirement, GitHub Pages static hosting provides a perfect, zero-cost environment.
+Оскільки серверна частина не потрібна, статичний хостинг GitHub Pages є ідеальним безкоштовним середовищем.
 
-## Architecture & SDR
-For detailed architectural decisions and models, please refer to:
+## Архітектура та SDR
+Детальні архітектурні рішення та моделі даних описані у:
 - [SDR.md](./docs/sdr/SDR.md)
 
-## Note
-Clearing your browser's local storage or caching data may result in data loss, as no server is used for backup.
+## Примітка
+Очищення локального сховища браузера або кешу може призвести до втрати даних, оскільки резервне копіювання на сервері не передбачено.
